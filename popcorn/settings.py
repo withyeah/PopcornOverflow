@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import django-heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#2r3%u#4y@gp3k#!+@t=&hc3ibj!yv^ogpb@1$8tt4oex(4s&&'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '4-ulqvgx)!ax#gv5kx$kqw=(5*c=(1lb&m8gy2%c1=y=-5ep03')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -138,9 +141,13 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -149,3 +156,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # default는 AUTH_USER_MODEL = 'auth.User'
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = 'movies:list'
+
+django_heroku.settings(locals())
