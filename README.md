@@ -104,7 +104,7 @@
 
 ## v. 배포 서버 URL 
 
-- ##### 배포URL : https://popcorn-overflow.herokuapp.com/movies/
+- ##### 배포URL : https://popcornoverflow2.herokuapp.com/movies/
 
 
 
